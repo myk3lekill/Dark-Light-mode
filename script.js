@@ -46,12 +46,30 @@ function swithcTheme(event) {
     if (event.target.checked) {
         //Document.documentElement returns the Element that is the root element of the document (for example, the <html> element for HTML documents).
         document.documentElement.setAttribute('data-theme', 'dark');
+        //Local Storage theme set
+        localStorage.setItem('theme', 'dark')
         darkMode()
     } else {
         document.documentElement.setAttribute('data-theme', 'light')
+        //Local Storage theme set
+        localStorage.setItem('theme', 'light')
         lightMode()
     }
 }
 
 //Event Listener
 toggleSwitch.addEventListener('change', swithcTheme);
+
+//Check Local Storage for Theme
+const currentTheme = localStorage.getItem('theme');
+console.log(currentTheme);//this will work when refresh page but first time is null
+//implement theme based on local storage data saved (if local storage exist)
+if (currentTheme) {
+    document.documentElement.setAttribute('data-theme', currentTheme);
+    //check for dark theme local storage
+    if (currentTheme === 'dark') {
+        //change toggleSwithc checked boolean
+        toggleSwitch.checked = true;
+        darkMode() //enable dark mode
+    }
+}
