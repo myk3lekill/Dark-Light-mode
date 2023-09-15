@@ -9,6 +9,13 @@ const image2 = document.getElementById('image2');
 const image3 = document.getElementById('image3');
 const textBox = document.getElementById('text-box');
 
+//Image Mode: dark or light
+function imageMode(color) {
+    image1.src = `img/undraw_proud_coder_${color}.svg`;
+    image2.src = `img/undraw_feeling_proud_${color}.svg`;
+    image3.src = `img/undraw_conceptual_idea_${color}.svg`;
+}
+
 //Dark Mode Function
 function darkMode() {
     //manipulate css style of nav and textbox ids
@@ -16,12 +23,9 @@ function darkMode() {
     textBox.style.backgroundColor = 'rgb(255 255 255 / 50%)';
     //manipulate toggleIcon childrens element: text content and class
     toggleIcon.children[0].textContent = 'Dark Mode';
-    toggleIcon.children[1].classList.remove('fa-sun');
-    toggleIcon.children[1].classList.add('fa-moon')
+    toggleIcon.children[1].classList.replace('fa-sun', 'fa-moon');
     //manipulate the images src to change them when dark mode is enabled
-    image1.src = 'img/undraw_proud_coder_dark.svg';
-    image2.src = 'img/undraw_feeling_proud_dark.svg';
-    image3.src = 'img/undraw_conceptual_idea_dark.svg';
+    imageMode('dark')
 }
 
 //Light Mode Function
@@ -31,12 +35,9 @@ function lightMode() {
    textBox.style.backgroundColor = 'rgb(0 0 0 / 50%)';
    //manipulate toggleIcon childrens element: text content and class
    toggleIcon.children[0].textContent = 'Light Mode';
-   toggleIcon.children[1].classList.remove('fa-moon');
-   toggleIcon.children[1].classList.add('fa-sun')
+   toggleIcon.children[1].classList.replace('fa-moon', 'fa-sun');
    //manipulate the images src to change them when dark mode is enabled
-   image1.src = 'img/undraw_proud_coder_light.svg';
-   image2.src = 'img/undraw_feeling_proud_light.svg';
-   image3.src = 'img/undraw_conceptual_idea_light.svg';
+    imageMode('light')
 }
 
 //Switch Theme Dynamically
