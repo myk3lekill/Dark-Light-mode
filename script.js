@@ -16,49 +16,37 @@ function imageMode(color) {
     image3.src = `img/undraw_conceptual_idea_${color}.svg`;
 }
 
-//Dark Mode Function
-function darkMode() {
+//Clean Code using thernary operator condition ? :
+function toggleDarkLightMode(isDark) {
     //manipulate css style of nav and textbox ids
-    nav.style.backgroundColor = 'rgb(0 0 0 / 50%)';
-    textBox.style.backgroundColor = 'rgb(255 255 255 / 50%)';
+    nav.style.backgroundColor = isDark ? 'rgb(0 0 0 / 50%)' : 'rgb(255 255 255 / 50%)'; 
+    textBox.style.backgroundColor = isDark ? 'rgb(255 255 255 / 50%)' : 'rgb(0 0 0 / 50%)';
     //manipulate toggleIcon childrens element: text content and class
-    toggleIcon.children[0].textContent = 'Dark Mode';
-    toggleIcon.children[1].classList.replace('fa-sun', 'fa-moon');
+    toggleIcon.children[0].textContent = isDark ? 'Dark Mode' : 'Light Mode';
+    isDark ? toggleIcon.children[1].classList.replace('fa-sun', 'fa-moon') : toggleIcon.children[1].classList.replace('fa-moon', 'fa-sun');
     //manipulate the images src to change them when dark mode is enabled
-    imageMode('dark')
-}
-
-//Light Mode Function
-function lightMode() {
-   //manipulate css style of nav and textbox ids
-   nav.style.backgroundColor = 'rgb(255 255 255 / 50%)';
-   textBox.style.backgroundColor = 'rgb(0 0 0 / 50%)';
-   //manipulate toggleIcon childrens element: text content and class
-   toggleIcon.children[0].textContent = 'Light Mode';
-   toggleIcon.children[1].classList.replace('fa-moon', 'fa-sun');
-   //manipulate the images src to change them when dark mode is enabled
-    imageMode('light')
+    isDark ? imageMode('dark') : imageMode('light')    
 }
 
 //Switch Theme Dynamically
-function swithcTheme(event) {
+function switchTheme(event) {
     //If checked value is true set the data theme 'dark' to implement css property
     if (event.target.checked) {
         //Document.documentElement returns the Element that is the root element of the document (for example, the <html> element for HTML documents).
         document.documentElement.setAttribute('data-theme', 'dark');
         //Local Storage theme set
         localStorage.setItem('theme', 'dark')
-        darkMode()
+        toggleDarkLightMode(true)
     } else {
         document.documentElement.setAttribute('data-theme', 'light')
         //Local Storage theme set
         localStorage.setItem('theme', 'light')
-        lightMode()
+        toggleDarkLightMode(false)
     }
 }
 
 //Event Listener
-toggleSwitch.addEventListener('change', swithcTheme);
+toggleSwitch.addEventListener('change', switchTheme);
 
 //Check Local Storage for Theme
 const currentTheme = localStorage.getItem('theme');
@@ -70,6 +58,6 @@ if (currentTheme) {
     if (currentTheme === 'dark') {
         //change toggleSwithc checked boolean
         toggleSwitch.checked = true;
-        darkMode() //enable dark mode
+        imageMode('dark') //enable dark mode
     }
 }
